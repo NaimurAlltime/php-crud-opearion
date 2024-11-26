@@ -10,8 +10,8 @@ include "db_conn.php";
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -19,32 +19,33 @@ include "db_conn.php";
   <title>PHP CRUD Application</title>
 </head>
 
-<body>
-  <nav class="navbar navbar-light justify-content-center fs-3 mb-5" style="background-color: #00ff5573;">
-    PHP Complete CRUD Application
+<body class="bg-gray-100">
+  <nav class="bg-green-200 text-center text-2xl font-semibold py-4 mb-6">
+    PHP CRUD Application
   </nav>
 
-  <div class="container">
+  <div class="container max-w-screen-xl mx-auto p-5 bg-white rounded-lg shadow">
     <?php
     if (isset($_GET["msg"])) {
       $msg = $_GET["msg"];
-      echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+      echo '<div class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4">
       ' . $msg . '
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <button class="float-right text-yellow-800 font-bold" onclick="this.parentElement.remove();">&times;</button>
     </div>';
     }
     ?>
-    <a href="add-new.php" class="btn btn-dark mb-3">Add New</a>
+    <a href="add-new.php" class="bg-gray-800 text-white px-4 py-2 rounded mb-4 inline-block hover:bg-gray-700">Add New</a>
 
-    <table class="table table-hover text-center">
-      <thead class="table-dark">
+    <table class="table-auto w-full border-collapse border border-gray-200">
+      <thead class="bg-gray-300">
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">First Name</th>
-          <th scope="col">Last Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">Gender</th>
-          <th scope="col">Action</th>
+         <th class="border border-gray-200 px-4 py-2 text-start">ID</th>
+          <th class="border border-gray-200 px-4  py-2 text-start">First Name</th>
+          <th class="border border-gray-200 px-4 py-2 text-start">Last Name</th>
+      
+          <th class="border border-gray-200 px-4 py-2 text-start">Email</th>
+          <th class="border border-gray-200 px-4 py-2 text-start">Gender</th>
+          <th class="border border-gray-200 px-4 py-2 text-start ">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -53,15 +54,15 @@ include "db_conn.php";
         $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_assoc($result)) {
         ?>
-          <tr>
-            <td><?php echo $row["id"] ?></td>
-            <td><?php echo $row["first_name"] ?></td>
-            <td><?php echo $row["last_name"] ?></td>
-            <td><?php echo $row["email"] ?></td>
-            <td><?php echo $row["gender"] ?></td>
-            <td>
-              <a href="edit.php?id=<?php echo $row["id"] ?>" class="link-dark"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
-              <a href="delete.php?id=<?php echo $row["id"] ?>" class="link-dark"><i class="fa-solid fa-trash fs-5"></i></a>
+          <tr class="odd:bg-white even:bg-gray-100">
+            <td class="border border-gray-200 px-4 py-2"><?php echo $row["id"] ?></td>
+            <td class="border border-gray-200 px-4 py-2"><?php echo $row["first_name"] ?></td>
+            <td class="border border-gray-200 px-4 py-2"><?php echo $row["last_name"] ?></td>
+            <td class="border border-gray-200 px-4 py-2"><?php echo $row["email"] ?></td>
+            <td class="border border-gray-200 px-4 py-2"><?php echo $row["gender"] ?></td>
+            <td class="border border-gray-200 px-4 py-2">
+              <a href="edit.php?id=<?php echo $row["id"] ?>" class="bg-blue-500 px-1.5 py-1 rounded-[4px] text-white"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+              <a href="delete.php?id=<?php echo $row["id"] ?>" class="bg-red-500 px-1.5 py-1 rounded-[4px] text-white ml-4"><i class="fa-solid fa-trash"></i> Delete</a>
             </td>
           </tr>
         <?php
@@ -70,9 +71,6 @@ include "db_conn.php";
       </tbody>
     </table>
   </div>
-
-  <!-- Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 </body>
 
