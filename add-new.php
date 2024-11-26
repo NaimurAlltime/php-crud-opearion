@@ -12,13 +12,35 @@ if (isset($_POST["submit"])) {
    $result = mysqli_query($conn, $sql);
 
    if ($result) {
-      header("Location: index.php?msg=New record created successfully");
+      // Trigger SweetAlert on success
+      echo "<script>
+         window.addEventListener('load', () => {
+            Swal.fire({
+               title: 'Success!',
+               text: 'New record created successfully',
+               icon: 'success',
+               confirmButtonText: 'OK'
+            }).then(() => {
+               window.location = 'index.php'; // Redirect to index.php after alert
+            });
+         });
+      </script>";
    } else {
-      echo "Failed: " . mysqli_error($conn);
+      // Trigger SweetAlert on error
+      echo "<script>
+         window.addEventListener('load', () => {
+            Swal.fire({
+               title: 'Error!',
+               text: '" . mysqli_error($conn) . "',
+               icon: 'error',
+               confirmButtonText: 'OK'
+            });
+         });
+      </script>";
    }
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,6 +52,9 @@ if (isset($_POST["submit"])) {
 
    <!-- Tailwind CSS -->
    <script src="https://cdn.tailwindcss.com"></script>
+
+   <!-- SweetAlert2 -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
    <title>Beautiful Form</title>
 </head>
@@ -73,17 +98,15 @@ if (isset($_POST["submit"])) {
          </div>
 
          <!-- Buttons -->
-         <div class="flex justify-between">
+         <div class="flex justify-end">
             <button type="submit" name="submit" class="w-full md:w-auto bg-green-500 text-white px-6 py-2 rounded-lg shadow hover:bg-green-600 focus:ring-2 focus:ring-green-400 focus:outline-none">
                Save
             </button>
-            <a href="index.php" class="w-full md:w-auto bg-red-500 text-white px-6 py-2 rounded-lg shadow hover:bg-red-600 focus:ring-2 focus:ring-red-400 focus:outline-none text-center">
-               Cancel
-            </a>
          </div>
       </form>
    </div>
 </body>
 
 </html>
+
 
